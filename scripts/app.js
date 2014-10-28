@@ -4,6 +4,8 @@
 
     'ngRoute',
 
+    'app.keyboard.factory',
+
     'app.my.ctrl',
     'app.my.service'
 
@@ -41,6 +43,8 @@
           }, 1);
       };
   })
+
+  
 
 
 }).call(this);

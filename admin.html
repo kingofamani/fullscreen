@@ -1,7 +1,7 @@
 <div style="margin:20px;" ng-init="init()" >
 
-
-	<h1 style="text-align:center;"><img src="imgs/ntpclogo.png">跑馬燈管理</h1>
+<button class="btn btn-danger btn-lg" ng-click="frontEnd()"><span class="fa fa-mail-reply"></span> 回前台</button>
+	<h1 style="text-align:center;"><img src="imgs/ntpclogo.png">後台－跑馬燈管理</h1>
 	<button class="btn btn-success btn-lg btn-block" ng-click="insert()"><h2><span class="fa fa-plus"></span>&nbsp;新增</h2></button>
 	<div style="margin:20px;"></div>
 	<div class="jumbotron" ng-show="newItem.editing">
@@ -28,8 +28,8 @@
 			</td>
 			<td>
                 <div class="pull-right" ng-hide="item.editing">
-                    <a href="" ng-click="edit(item)"><span class="fa fa-pencil fa-lg fa-fw"></span></a>
-                    <a href="" ng-click="delete(item)"><span class="fa fa-times fa-lg fa-fw"></span></a>
+                    <a href="" ng-click="edit(item)"><span class="fa fa-pencil fa-lg fa-fw alert-success"></span></a>
+                    <a href="" ng-click="delete(item)"><span class="fa fa-times fa-lg fa-fw alert-danger"></span></a>
                 </div>
             </td>
 		</tr>

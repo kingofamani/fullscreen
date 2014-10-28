@@ -1,26 +1,41 @@
 (function() {
   'use strict';
   angular.module('app.my.ctrl', []).controller('MyCtrl', [
-    '$scope','$rootScope','$timeout','$sce', 'MySvc',  function($scope,$rootScope,$timeout,$sce,MySvc) {
+    '$scope','$rootScope','$route','$timeout','$sce','$location', 'MySvc','keyboardManager',  
+    function($scope,$rootScope,$route,$timeout,$sce,$location,MySvc,keyboardManager) {
 
+    //監看ng-repeat complate事件
     $scope.$on('onRepeatLast', function(scope, element, attrs){
       $("#marquee1").marquee();
     });
 
-    $scope.$watch(function() {
-      return $rootScope.items;
-    }, function() {
-      console.log ('items');
-      // $scope.userPLevel = $rootScope.uPLevel;
-    }, true);
+    // 回後台
+    keyboardManager.bind('ctrl+right', function() {
+      $location.path('/admin');
+    }); 
+    // 回前台
+    keyboardManager.bind('ctrl+left', function() {
+      $location.path('/news');
+    });    
+
+    
+
+    // $scope.keydown = function(e){
+    //   console.log(e);
+    //   console.log('keyCode:'+ e.keyCode);
+    //   console.log('ctrlKey:' + e.ctrlKey);
+    // }
 
     $scope.test = function(){
-      $scope.msg = $sce.trustAsHtml("Hello World! <br />This text is rendered by angularjs service."); 
-      console.log ($scope.msg);
+      // $route.reload();
     }
     
     $scope.start = function(){
       $("#marquee1").marquee();
+    }
+
+    $scope.frontEnd = function(){
+      $location.path('/news');
     }
 
     $scope.initNews = function(){
@@ -45,7 +60,7 @@
       //天氣
       getWether();
       showtime();
-      $timeout(getWether,180000);//每3分鐘更新一次
+      $timeout(getWether,600000);//每10分鐘更新一次
       $timeout(showtime,1000);
     }
     
@@ -53,7 +68,7 @@
     $scope.init = function(){
       MySvc.init().then(function(res){
         $rootScope.items = res; 
-        console.log ($rootScope.items);    
+        // console.log ($rootScope.items);    
       });
       
     }
@@ -117,11 +132,11 @@
           //console.log(data);
           //alert('ok');
           $('#icon').prop("src",data.Icon);
-          $('#temp').html(data.Weather+" "+data.Temp_c+" &deg;C ");
+          $('#temp').html(data.Weather+""+data.Temp_c+"&deg;C ");
           // $('#temp').html(data.Temp_c+" &deg;C ");
         }
       );
-      $timeout(getWether,180000);//每3分鐘更新一次
+      $timeout(getWether,600000);//每10分鐘更新一次
     }
       
       
