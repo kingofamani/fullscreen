@@ -52,3 +52,24 @@
 	padding:6px;
 	margin:0px;
 }
+
+
+.studyTable {	
+	font-family: DFKai-sb;
+	font-size: 20pt;
+	font-weight:bold;
+
+	width:100%; 
+	border:1px solid #ccc
+}
+.studyTable th {
+	background:#eeeeee
+}
+.studyTable td {
+	font-size: 25pt;
+	background:#f8f8f8
+}
+
+
+
+

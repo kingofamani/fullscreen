@@ -39,11 +39,6 @@
     }
 
     $scope.initNews = function(){
-      //$('#startbtn').trigger('click');
-      // console.log($rootScope.items);
-      //  if($rootScope.items.length>0)
-      // $("#marquee1").marquee();
-      //$("#marquee1").marquee();
       //初始訊息
       MySvc.getItems().then(function(res){
         $rootScope.items = res;
@@ -55,13 +50,15 @@
         //跑馬燈
         $("#marquee1").marquee();
       });
-      
-      
-      //天氣
-      getWether();
-      showtime();
-      $timeout(getWether,600000);//每10分鐘更新一次
-      $timeout(showtime,1000);
+            
+      getStudy();//遠端取得課表
+      showStudy();//每10秒更新畫面
+      getWether();//天氣
+      showtime();//目前時間
+      // $timeout(getStudy,600000);
+      // $timeout(showStudy,10000);
+      // $timeout(getWether,600000);
+      // $timeout(showtime,1000);
     }
     
 
@@ -127,7 +124,7 @@
 
     function getWether(){
       console.log ('getWether');
-      $.get("http://boe.ntpc.edu.tw/weather.ashx"
+      $.get("http://boe.ntpc.edu.tw/StudyOpenData.ashx?act=weather"
         ,function(data){
           //console.log(data);
           //alert('ok');
@@ -137,6 +134,53 @@
         }
       );
       $timeout(getWether,600000);//每10分鐘更新一次
+    }
+
+
+    function getStudy(){
+      console.log ('getStudy');
+      $.get("http://boe.ntpc.edu.tw/StudyOpenData.ashx?act=study"
+        ,function(data){
+          $scope.allStudy = data.result;
+
+          var len = $scope.allStudy.length;
+          if ($scope.allStudy[len-1].length != 4){
+            var sublen = $scope.allStudy[len-1].length;
+            for(var i=0;i<4-sublen;i++){
+              var item = {
+                stime: ':',
+                etime: ':',
+                classroom: '',
+                reason: ''
+              };
+              $scope.allStudy[len-1].push(item);
+            }
+          }
+
+          $scope.studys = $scope.allStudy[0];
+        }
+      );
+      $timeout(getStudy,600000);//每10分鐘更新一次
+    }
+
+    var index = 0;
+    function showStudy(){  
+      console.log ('showStudy ' +index);
+      if (typeof $scope.allStudy != 'undefined'){
+        $scope.studys = $scope.allStudy[index];
+
+        if($scope.allStudy.length == 1){
+          index = 0;
+        }else if(index+1 == $scope.allStudy.length){
+          index = 0;
+        }else{
+          index ++;
+        }
+
+
+      }
+
+      $timeout(showStudy,5000);//每10秒更新一次
     }
       
       
