@@ -59,6 +59,9 @@
       // $timeout(showStudy,10000);
       // $timeout(getWether,600000);
       // $timeout(showtime,1000);
+
+      
+
     }
     
 
@@ -124,7 +127,7 @@
 
     function getWether(){
       console.log ('getWether');
-      $.get("http://boe.ntpc.edu.tw/StudyOpenData.ashx?act=weather"
+      $.get("http://boe.ntpc.edu.tw/Study/StudyOpenData.ashx?act=weather"
         ,function(data){
           //console.log(data);
           //alert('ok');
@@ -139,7 +142,7 @@
 
     function getStudy(){
       console.log ('getStudy');
-      $.get("http://boe.ntpc.edu.tw/StudyOpenData.ashx?act=study"
+      $.get("http://boe.ntpc.edu.tw/Study/StudyOpenData.ashx?act=study"
         ,function(data){
           $scope.allStudy = data.result;
 

@@ -3,8 +3,10 @@
   angular.module('app', [
 
     'ngRoute',
+    'ngSanitize',
 
     'app.keyboard.factory',
+    'app.fileIO.ctrl',
 
     'app.my.ctrl',
     'app.my.service'

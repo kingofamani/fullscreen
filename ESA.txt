@@ -1,0 +1,1 @@
+{"esaiscreated":true,"esaitems":[{"id":1,"message":"welcome~~~~","editing":false},{"id":2,"message":"美國疾病管制暨預防中心（CDC）表示，在幾內亞治療伊波拉病患的醫師一抵達甘迺迪國際機場，「就接受針對來自西非疫區國家所有旅客的加強篩檢措施」。","editing":false},{"id":3,"message":"美國職籃NBA熱身賽，湖人隊在主場迎戰拓荒者，林書豪今天沒有先發，在第一節剩下4分07秒時替補出賽，上場24分鐘，投9中5，包括4罰中3，拿下13分、3籃板、5助攻。","editing":false}],"esaserial":4}

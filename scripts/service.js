@@ -9,6 +9,18 @@
       
       var items = [];
       var serial = 0;
+      var baseUrl="http://longer.test.ntpc.edu.tw/boe/Study/StudyOpenData.ashx";
+
+      var writemsg = function(items){
+        var json = angular.toJson(items);
+        $.post(
+            baseUrl
+            ,{act:'writemsg',msg:json}
+            ,function(data){
+                // console.log(data);
+              }
+          )
+      }
 
       return {
         
@@ -42,14 +54,23 @@
             lo.set(IS_CREATED,true);
             lo.set(SERIAL,4);
 
+            writemsg(items);//寫入遠端
+
             items = lo.gets(ITEMS);
             serial = lo.get(SERIAL);
             d.resolve(items);
           }else{
             console.log ('second');
-            items = lo.gets(ITEMS);
-            serial = lo.get(SERIAL);
-            d.resolve(items);
+
+            $http.get(baseUrl+"?act=readmsg")
+            .success(function(data){
+              items = data;
+              lo.sets(ITEMS,items);
+              serial = lo.get(SERIAL);
+              d.resolve(items)
+            })
+            // items = lo.gets(ITEMS);
+            ;
           }
 
           return d.promise;
@@ -62,12 +83,18 @@
           items.push(item);
           lo.sets(ITEMS,items);
           lo.set(SERIAL,parseInt(item.id)+1);
+
+          writemsg(items);//寫入遠端
+
           d.resolve(items);
           return d.promise;
         },     
 
         edit : function(items){
           items = items;
+
+          writemsg(items);//寫入遠端
+
           lo.sets(ITEMS,items);
         },
 
@@ -76,6 +103,7 @@
           for(var i=0;i<items.length;i++){
             if(items[i].id == item.id){
               items.splice(i,1);
+              writemsg(items);//寫入遠端
               lo.sets(ITEMS,items);
               d.resolve(items);
               break;
@@ -86,8 +114,16 @@
 
         getItems: function(){
           var d = $q.defer();
-          items = lo.gets(ITEMS);
-          d.resolve(items);
+          
+          $http.get(baseUrl+"?act=readmsg")
+            .success(function(data){
+              items = data;
+              lo.sets(ITEMS,items);
+              d.resolve(items)
+            })
+
+          // items = lo.gets(ITEMS);
+          // d.resolve(items);
           return d.promise;
         }
 

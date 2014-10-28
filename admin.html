@@ -1,6 +1,30 @@
 <div style="margin:20px;" ng-init="init()" >
 
-<button class="btn btn-danger btn-lg" ng-click="frontEnd()"><span class="fa fa-mail-reply"></span> 回前台</button>
+	<button class="btn btn-danger btn-lg" ng-click="frontEnd()"><span class="fa fa-mail-reply"></span> 回前台</button>
+
+	<!-- <div ng-controller = "FileIOCtrl">
+		<h1 class="text-center text-danger">
+	        <button class="btn btn-warning btn-lg" ng-click="backup()"><span class="fa fa-download fa-lg"></span> 匯出文字檔(backup)</button>
+	    </h1>
+	    <a download="ESA.txt" id="download" style="display: none"></a>
+
+	    <hr/>
+
+	    <h4 class="text-danger col-xs-offset-5">
+	         <input type="file" onchange="readfile(this.file[0])" accept=".txt"></input>
+	    </h4>  
+
+	    <button onclick="readfile('C:\tomcat7055\webapps\fullscreen\ESA.txt')">readfile</button>
+
+	    <h1 class="text-center text-danger">
+	        <button class="btn btn-warning btn-lg" ng-click="restore()"><span class="fa fa-upload fa-lg"></span> 匯入至系統(restore)</button>
+	    </h1> 
+
+	    <pre id="output" ng-show="false"></pre>
+	</div> -->
+	
+
+
 	<h1 style="text-align:center;"><img src="imgs/ntpclogo.png">後台－跑馬燈管理</h1>
 	<button class="btn btn-success btn-lg btn-block" ng-click="insert()"><h2><span class="fa fa-plus"></span>&nbsp;新增</h2></button>
 	<div style="margin:20px;"></div>
@@ -36,3 +60,22 @@
 
 	</table>
 </div>
+
+
+<script>
+// Read the specified text file and display it in the <pre> element below
+function readfile(f) {
+	console.log ('readfile');
+    var reader = new FileReader();  // Create a FileReader object
+    reader.readAsText(f);           // Read the file
+    reader.onload = function() {    // Define an event handler
+        var text = reader.result;   // This is the file contents
+        var out = document.getElementById("output");    // Find output element
+        out.innerHTML = "";                             // Clear it
+        out.appendChild(document.createTextNode(text)); // Display file contents
+    }
+    reader.onerror = function(e) {  // If anything goes wrong
+        console.log("Error", e);    // Just log it
+    };
+}
+</script>
