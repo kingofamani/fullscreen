@@ -1,0 +1,38 @@
+<div style="margin:20px;" ng-init="init()" >
+
+
+	<h1 style="text-align:center;"><img src="imgs/ntpclogo.png">跑馬燈管理</h1>
+	<button class="btn btn-success btn-lg btn-block" ng-click="insert()"><h2><span class="fa fa-plus"></span>&nbsp;新增</h2></button>
+	<div style="margin:20px;"></div>
+	<div class="jumbotron" ng-show="newItem.editing">
+		<input style="font-size:20pt;height:50px;margin-bottom:5px;"  type="text" class="form-control" value="{{newItem.message}}" ng-model="newItem.message" placeholder="請輸入跑馬燈訊息..."><button class="btn btn-warning btn-lg" ng-click="insertOk(newItem)"><span class="fa fa-save"></span>&nbsp;確定</button>&nbsp;<button class="btn btn-default btn-lg" ng-click="cancel(newItem)">取消</button>
+	</div>
+
+	<table class="table" style="font-size:18pt;">
+		<tr>
+			<th class="text-center">序號</th>
+			<th class="text-center">訊息</th>
+			<th class="text-center">操作</th>
+		</tr>
+		<tr ng-repeat="item in items">
+			<td>
+				<span class="badge badge alert-success"><h4>{{$index+1}}</h4></span>
+			</td>
+			<td>
+				<div ng-hide="item.editing">
+					{{item.message}}
+				</div>
+				<div ng-show="item.editing" >
+					<textarea style="font-size:20pt;margin-bottom:5px;" class="form-control" value="{{item.message}}" ng-model="item.message"></textarea><button class="btn btn-warning btn-lg" ng-click="editOk(item)"><span class="fa fa-save"></span>&nbsp;儲存</button>&nbsp;<button class="btn btn-default btn-lg" ng-click="cancel(item)">取消</button>
+				</div>  
+			</td>
+			<td>
+                <div class="pull-right" ng-hide="item.editing">
+                    <a href="" ng-click="edit(item)"><span class="fa fa-pencil fa-lg fa-fw"></span></a>
+                    <a href="" ng-click="delete(item)"><span class="fa fa-times fa-lg fa-fw"></span></a>
+                </div>
+            </td>
+		</tr>
+
+	</table>
+</div>
